@@ -23,7 +23,20 @@ module.exports = {
             //won't be visible in dist folder when we run in development mode, it will simply stream to the server
             filename: 'index.html',
             template: './src/index.html'
-
         })
-    ]
+    ],
+    //loaders in webpack to load/import all kinds of different files and process them
+    //for our use-case converting ES6 to ES5
+    module: {
+        rules: [
+            //rules of all loaders and for each loader we need an object
+            {
+                test: /\.js$/, //regular expression that ends with .js
+                exclude: /node_modules/, //exclude all the files in node_modules, this is a regular expression too
+                use: {
+                    loader: "babel-loader" //the npm we have installed before
+                }
+            }
+        ]
+    }
 };
