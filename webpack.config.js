@@ -7,7 +7,10 @@ const htmlWebpackPlugin = require('html-webpack-plugin');
 //module.export is similar to node.js syntax - we are exporting an object
 //in webpack there are four main components - entry point, output, loaders and plugins
 module.exports = {
-    entry: './src/js/index.js', //here . means current folder
+    entry: [
+        'babel-polyfill',
+        './src/js/index.js'
+    ],
     output : { //we pass an object to output
         path: path.resolve(__dirname, 'dist'), //path here is absolute path, which we need node package called path
         filename: "js/bundle.js"
