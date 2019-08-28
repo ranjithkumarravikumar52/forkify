@@ -1,8 +1,22 @@
-import string from './models/Search'; //we don't mention the file extension, omit .js
-console.log(`importing string : ${string}`);
+import axios from 'axios'; //convention to follow the same name as package
 
-//importing multiple functions and variable
-// import {add as a, multiply as m, ID} from "./views/searchView";
-import * as searchView from "./views/searchView";
-console.log(`Using imported functions add : ${searchView.add(3, 4)}, multiply : ${searchView.multiply(3, 4)} and ID : ${searchView.ID}`);
-
+/*
+ * Reasons why we use axios over fetch.
+ * Better error handling, no need for extra json format conversion, backward compatibility
+ *
+ * fetch(query) //old browsers doesn't recognize fetch, so we use axios
+ */
+async function getResults(query){
+    try{
+        const proxy = 'https://cors-anywhere.herokuapp.com/';
+        const key = '36daac7318c7ce421d5a078ff89b65b2';
+        const url = 'https://www.food2fork.com/api/search';
+        var axiosResponse = await axios(`${proxy}${url}?key=${key}&q=${query}`);
+        return axiosResponse;
+    }catch(error){
+        console.log(error);
+    }
+}
+getResults('biryani').then(result => {
+    console.log(result);
+});
