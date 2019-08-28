@@ -1,5 +1,8 @@
-// Global app controller
+import string from './models/Search'; //we don't mention the file extension, omit .js
+console.log(`importing string : ${string}`);
 
-import x from './test'; //x value will hold 23 coming from test module
-const y = 23;
-console.log(`I imported ${x} from another module! Variable y is ${y}`); //this command works only if we use some kind of bundler tools
+//importing multiple functions and variable
+// import {add as a, multiply as m, ID} from "./views/searchView";
+import * as searchView from "./views/searchView";
+console.log(`Using imported functions add : ${searchView.add(3, 4)}, multiply : ${searchView.multiply(3, 4)} and ID : ${searchView.ID}`);
+
