@@ -11,7 +11,7 @@ export default class Search{ //the model we want to contain here is data and sea
             const url = 'https://www.food2fork.com/api/search';
             var axiosResponse = await axios(`${proxy}${url}?key=${key}&q=${this.query}`);
             this.result = axiosResponse.data.recipes;
-            console.log(this.result);
+            // console.log(this.result);
         }catch(error){
             console.log(error);
         }
