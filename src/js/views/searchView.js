@@ -9,6 +9,11 @@ export const clearInput = () => { //curly braces will remove that implict return
     elements.searchInput.value = '';
 };
 
+//clear results
+export const clearResults = () => {
+    elements.searchResultList.innerHTML = '';
+};
+
 //render a recipe to UI - Single responsibility principle
 //no export - private function
 const renderRecipe = (recipe) => {
