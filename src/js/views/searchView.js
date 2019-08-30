@@ -153,7 +153,7 @@ const renderButtonsForPagination = (page, numResults, resultsPerPage) => {
  * page n : (n - 1) * 10 -> ((10 * n) - 1)
  *
  */
-export const renderResults = (recipes, page = 1, resultsPerPage = 3) => {
+export const renderResults = (recipes, page = 2, resultsPerPage = 5) => {
     const start = ((page - 1) * resultsPerPage);
     const end = ((resultsPerPage * page) - 1);
 
