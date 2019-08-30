@@ -48,6 +48,7 @@ elements.searchResultPages.addEventListener('click', event => {
     //now if we got a valid button, then let's navigate to goto page
     if(button){
         const goToPage = parseInt(button.dataset.goto, 10); //gives us the data attribute value of data-goto here, which is a string
+        searchView.clearResults();
         searchView.renderResults(state.search.result, goToPage);
     }
 });

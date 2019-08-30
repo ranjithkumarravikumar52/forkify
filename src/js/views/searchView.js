@@ -9,9 +9,12 @@ export const clearInput = () => { //curly braces will remove that implict return
     elements.searchInput.value = '';
 };
 
-//clear results
+/**
+ * This method will clear the recipes list displayed and also clear out all buttons of the pagination
+ */
 export const clearResults = () => {
     elements.searchResultList.innerHTML = '';
+    elements.searchResultPages.innerHTML = '';
 };
 
 /**
