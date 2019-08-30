@@ -84,6 +84,34 @@ const renderRecipe = (recipe) => {
 };
 
 /**
+ * Private function to render buttons for the pagination, based on the current page
+ * Example:
+ * If we are on page 1, it should display ONLY page 2
+ * If we are not at the start or at end page, then current page should display next and previous buttons
+ * If we are the end page, only previous button should be enabled
+ * @param page - current page
+ * @param numResults - total number of recipes or results
+ * @param resultsPerPage
+ *
+ * How do we calculate the total number of pages?
+ * Total Number of Pages = numResults / resultsPerPage
+ *
+ * Example: 30 results and results per page is 10, then totalNumberOfPages = 30/10 = 3;
+ *
+ */
+const renderButtonsForPagination = (page, numResults, resultsPerPage) => {
+    const pages = Math.ceil(numResults / resultsPerPage);
+
+    if(page === 1  && pages > 1){
+        //Button for next page
+    }else if(page < pages){
+        //Button for next and previous page
+    }else if(page === pages && pages > 1){
+        //Button for previous page
+    }
+};
+
+/**
  * render results to UI, default recipes length in our array is 30, loop through the array and print each of them to the UI
  * @param recipes - list of recipes that we get from the API
  * @param page - current page
