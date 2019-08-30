@@ -116,13 +116,23 @@ const createButton = (page, type) => `
 const renderButtonsForPagination = (page, numResults, resultsPerPage) => {
     const pages = Math.ceil(numResults / resultsPerPage);
 
+    let button;
     if(page === 1  && pages > 1){
         //Button for next page
+        button = createButton(page, 'next');
     }else if(page < pages){
         //Button for next and previous page
+        button = `
+            ${createButton(page, 'prev')}
+            ${createButton(page, 'next')}
+        `;
     }else if(page === pages && pages > 1){
         //Button for previous page
+        button = createButton(page, 'prev');
     }
+
+    //insert into HTML
+    elements.searchResultPages.insertAdjacentHTML('afterbegin', button);
 };
 
 /**
@@ -149,4 +159,7 @@ export const renderResults = (recipes, page = 1, resultsPerPage = 3) => {
 
     // recipes.forEach(element => renderRecipe(element)); //similar to below LOC
     recipes.slice(start, end + 1).forEach(renderRecipe); //slice(start, end) => start is inclusive and end is exclusive, so adding +1 to end
+
+    //render pagination buttons
+    renderButtonsForPagination(page, recipes.length, resultsPerPage);
 };
