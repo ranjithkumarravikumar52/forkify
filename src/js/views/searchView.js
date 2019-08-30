@@ -9,9 +9,12 @@ export const clearInput = () => { //curly braces will remove that implict return
     elements.searchInput.value = '';
 };
 
-//clear results
+/**
+ * This method will clear the recipes list displayed and also clear out all buttons of the pagination
+ */
 export const clearResults = () => {
     elements.searchResultList.innerHTML = '';
+    elements.searchResultPages.innerHTML = '';
 };
 
 /**
@@ -83,10 +86,83 @@ const renderRecipe = (recipe) => {
 
 };
 
-//render results to UI
-export const renderResults = (recipes) => {
-    //default recipes length in our array is 30
-    //loop through the array and print each of them to the UI
-    // recipes.forEach(element => renderRecipe(element));
-    recipes.forEach(renderRecipe);
+/**
+ *
+ * @param page - current page
+ * @param type - check if we are on the first page, end page or in-between; type can be 'prev' or 'next'
+ */
+const createButton = (page, type) => `
+    <button class="btn-inline results__btn--${type}" data-goto=${type === 'prev' ? page - 1 : page + 1}>
+        <span>Page ${type === 'prev' ? page - 1 : page + 1}</span>
+        <svg class="search__icon">
+            <use href="img/icons.svg#icon-triangle-${type === 'prev' ? 'left' : 'right'}"></use>
+        </svg>
+    </button>
+`;
+
+/**
+ * Private function to render buttons for the pagination, based on the current page
+ * Example:
+ * If we are on page 1, it should display ONLY page 2
+ * If we are not at the start or at end page, then current page should display next and previous buttons
+ * If we are the end page, only previous button should be enabled
+ * @param page - current page
+ * @param numResults - total number of recipes or results
+ * @param resultsPerPage
+ *
+ * How do we calculate the total number of pages?
+ * Total Number of Pages = numResults / resultsPerPage
+ *
+ * Example: 30 results and results per page is 10, then totalNumberOfPages = 30/10 = 3;
+ *
+ */
+const renderButtonsForPagination = (page, numResults, resultsPerPage) => {
+    const pages = Math.ceil(numResults / resultsPerPage);
+
+    let button;
+    if(page === 1  && pages > 1){
+        //Button for next page
+        button = createButton(page, 'next');
+    }else if(page < pages){
+        //Button for next and previous page
+        button = `
+            ${createButton(page, 'prev')}
+            ${createButton(page, 'next')}
+        `;
+    }else if(page === pages && pages > 1){
+        //Button for previous page
+        button = createButton(page, 'prev');
+    }
+
+    //insert into HTML
+    elements.searchResultPages.insertAdjacentHTML('afterbegin', button);
+};
+
+/**
+ * render results to UI, default recipes length in our array is 30, loop through the array and print each of them to the UI
+ * @param recipes - list of recipes that we get from the API
+ * @param page - current page
+ * @param resultsPerPage - recipes per page
+ *
+ * PAGINATION example
+ *
+ * Assuming page numbers are 1-based and elements per page are 0-based
+ * page 1: 0 - 9 elements
+ * page 2: 10 - 19 elements
+ * page 3 : 20 - 29 elements
+ * ...
+ * nth term for the series -> 0,10,20,30...n is 0 + (n-1)*10 => (n-1) * 10
+ * nth term for the series -> 9,19,29,39...n is 9 + (n - 1) * 10 => (10*n - 1)
+ * page n : (n - 1) * 10 -> ((10 * n) - 1)
+ *
+ */
+export const renderResults = (recipes, page = 2, resultsPerPage = 5) => {
+    const start = ((page - 1) * resultsPerPage);
+    const end = ((resultsPerPage * page) - 1);
+
+    // recipes.forEach(element => renderRecipe(element)); //similar to below LOC
+    recipes.slice(start, end + 1).forEach(renderRecipe); //slice(start, end) => start is inclusive and end is exclusive, so adding +1 to end
+
+    //render pagination buttons
+    renderButtonsForPagination(page, recipes.length, resultsPerPage);
 };
