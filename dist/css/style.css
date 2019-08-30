@@ -139,6 +139,7 @@ body {
 .link:visited {
   color: #968B87; }
 
+/*this is where the ajax loading spinner takes place*/
 .loader {
   margin: 5rem auto;
   text-align: center; }
