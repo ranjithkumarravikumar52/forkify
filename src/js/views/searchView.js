@@ -21,6 +21,11 @@ const renderRecipe = (recipe) => {
         </li>
     `;
 
+    //render it to the DOM
+    //if we use beforeEnd the results will be in ascending order - 1,2,3,4... <---WE WANT THIS -->
+    //if we use afterBegin the results will be in descending order - ....4,3,2,1.
+    elements.searchResultList.insertAdjacentHTML('beforeend', markup);
+
 };
 
 //render results to UI
