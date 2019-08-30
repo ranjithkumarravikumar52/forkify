@@ -83,10 +83,28 @@ const renderRecipe = (recipe) => {
 
 };
 
-//render results to UI
-export const renderResults = (recipes) => {
-    //default recipes length in our array is 30
-    //loop through the array and print each of them to the UI
-    // recipes.forEach(element => renderRecipe(element));
-    recipes.forEach(renderRecipe);
+/**
+ * render results to UI, default recipes length in our array is 30, loop through the array and print each of them to the UI
+ * @param recipes - list of recipes that we get from the API
+ * @param page - current page
+ * @param resultsPerPage - recipes per page
+ *
+ * PAGINATION example
+ *
+ * Assuming page numbers are 1-based and elements per page are 0-based
+ * page 1: 0 - 9 elements
+ * page 2: 10 - 19 elements
+ * page 3 : 20 - 29 elements
+ * ...
+ * nth term for the series -> 0,10,20,30...n is 0 + (n-1)*10 => (n-1) * 10
+ * nth term for the series -> 9,19,29,39...n is 9 + (n - 1) * 10 => (10*n - 1)
+ * page n : (n - 1) * 10 -> ((10 * n) - 1)
+ *
+ */
+export const renderResults = (recipes, page = 1, resultsPerPage = 3) => {
+    const start = ((page - 1) * resultsPerPage);
+    const end = ((resultsPerPage * page) - 1);
+
+    // recipes.forEach(element => renderRecipe(element)); //similar to below LOC
+    recipes.slice(start, end + 1).forEach(renderRecipe); //slice(start, end) => start is inclusive and end is exclusive, so adding +1 to end
 };
