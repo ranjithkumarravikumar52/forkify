@@ -4,6 +4,11 @@ import {elements} from "../models/base"; //import DOM elements
 //provide a way to export to our global app controller index.js
 export const getInput = () => elements.searchInput.value;
 
+//to clear input field after query is submitted
+export const clearInput = () => { //curly braces will remove that implict return functionality
+    elements.searchInput.value = '';
+};
+
 //render a recipe to UI - Single responsibility principle
 //no export - private function
 const renderRecipe = (recipe) => {
