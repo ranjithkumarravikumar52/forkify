@@ -84,6 +84,20 @@ const renderRecipe = (recipe) => {
 };
 
 /**
+ *
+ * @param page - current page
+ * @param type - check if we are on the first page, end page or in-between; type can be 'prev' or 'next'
+ */
+const createButton = (page, type) => `
+    <button class="btn-inline results__btn--${type}" data-goto=${type === 'prev' ? page - 1 : page + 1}>
+        <svg class="search__icon">
+            <use href="img/icons.svg#icon-triangle-${type === 'prev' ? 'left' : 'right'}"></use>
+        </svg>
+        <span>Page ${type === 'prev' ? page - 1 : page + 1}</span>
+    </button>
+`;
+
+/**
  * Private function to render buttons for the pagination, based on the current page
  * Example:
  * If we are on page 1, it should display ONLY page 2
