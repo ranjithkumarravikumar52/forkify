@@ -22,3 +22,10 @@ export const renderTheLoader = parent => {
     //attach the above loader to the parent
     parent.insertAdjacentHTML('afterbegin', loader);
 };
+
+export const clearTheLoader = () => {
+    const loader = document.querySelector('.loader');
+    if(loader){//loader exists so we delete it
+        loader.parentNode.removeChild(loader);
+    }
+};

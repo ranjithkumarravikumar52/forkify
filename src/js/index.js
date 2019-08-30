@@ -1,6 +1,6 @@
 import Search from "./models/Search";
 import * as searchView from "./views/searchView"; //all functions
-import {elements, renderTheLoader} from "./models/base"; //DOM strings, spinner
+import {elements, renderTheLoader, clearTheLoader} from "./models/base"; //DOM strings, spinner
 
 /** Global state of the object
  * - Search object
@@ -30,6 +30,7 @@ const controlSearch = async () => {
 
         // 5. render(log) results on UI
         // console.log(state.search.result)
+        clearTheLoader();
         searchView.renderResults(state.search.result);
     }*/
 };
